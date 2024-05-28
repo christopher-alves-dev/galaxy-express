@@ -22,26 +22,41 @@ import {
 } from "./select";
 
 export function FormAddress() {
-  const { form } = useAddressForm();
+  const { form, createOrUpdateAddress } = useAddressForm();
 
   function onSubmit(values: SchemaFormType) {
     console.log(values);
+    createOrUpdateAddress(values);
   }
 
   return (
     <Form {...form}>
       <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-6">
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Address Label" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
-            </SelectContent>
-          </Select>
+          <FormField
+            control={form.control}
+            name="type"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Address Type</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a address type" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="factory">Factory</SelectItem>
+                    <SelectItem value="storage">Storage</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
           <FormField
             control={form.control}

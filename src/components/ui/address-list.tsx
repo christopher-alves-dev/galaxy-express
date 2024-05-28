@@ -11,22 +11,25 @@ import {
   CardHeader,
   CardTitle,
 } from "./card";
+import { useRouter } from "next/navigation";
 
 export function AddressList() {
+  const router = useRouter();
   const { address } = useAddressStore();
 
   const emptyList = !address?.length;
 
-  function handleNavigateToEdit() {
+  function handleNavigateToEdit(landNumber: string) {
+    router.push(`/address/${landNumber}`);
     console.log("Edit Address");
   }
 
-  function handleDeleteAddress() {
+  function handleDeleteAddress(id: number) {
     console.log("Delete Address");
   }
 
   return (
-    <div className="h-[450px] space-y-3 overflow-y-scroll">
+    <div className="h-[420px] space-y-3 overflow-y-scroll">
       {emptyList && (
         <div className="flex h-full flex-col items-center justify-center gap-10">
           <ValueNoneIcon className="h-20 w-20 text-muted-foreground" />
@@ -48,11 +51,9 @@ export function AddressList() {
               <CardHeader className="space-y-3">
                 <Badge
                   className="w-fit"
-                  variant={
-                    item?.property === "factory" ? "default" : "secondary"
-                  }
+                  variant={item?.type === "factory" ? "default" : "secondary"}
                 >
-                  {item?.property}
+                  {item?.type}
                 </Badge>
 
                 <CardTitle>{item?.fullname}</CardTitle>
@@ -63,8 +64,13 @@ export function AddressList() {
                 </div>
               </CardHeader>
               <CardContent className="flex gap-3">
-                <Button onClick={handleNavigateToEdit}>Edit Address</Button>
-                <Button onClick={handleDeleteAddress} variant="destructive">
+                <Button onClick={() => handleNavigateToEdit(item.landNumber)}>
+                  Edit Address
+                </Button>
+                <Button
+                  onClick={() => handleDeleteAddress(item.id)}
+                  variant="destructive"
+                >
                   Delete Address
                 </Button>
               </CardContent>

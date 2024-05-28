@@ -1,13 +1,19 @@
-import { SchemaFormType } from "@/app/address/schema";
 import { create } from "zustand";
+import { SchemaFormType } from "@/app/address/schema";
+
+type AddressDataWithId = SchemaFormType & { id: number };
+
+type CreateOrUpdateAddressData = SchemaFormType & Partial<{ id: number }>;
 
 type AddressState = {
-  address: SchemaFormType[];
+  address: AddressDataWithId[];
 };
 
 type AddressActions = {
-  updateAddress: (address: SchemaFormType) => void;
-  deleteAddress: (address: SchemaFormType) => void;
+  findAddress: (landNumber: string) => AddressDataWithId | undefined;
+  createOrUpdateAddress: (address: CreateOrUpdateAddressData) => void;
+  updateAddressList: (list: AddressDataWithId[]) => void;
+  deleteAddress: (addressId: number) => void;
   resetAddress: () => void;
 };
 
@@ -16,19 +22,22 @@ type AddressStore = AddressState & AddressActions;
 const initialState: AddressState = {
   address: [
     {
-      property: "factory",
+      id: 1,
+      type: "factory",
       fullname: "Hato Jedu",
       email: "hatojedu@maif.mc",
       landNumber: "0034",
     },
     {
-      property: "storage",
+      id: 2,
+      type: "storage",
       fullname: "Hogju Vpis",
       email: "hogjuvpis@ose.nc",
       landNumber: "1434",
     },
     {
-      property: "storage",
+      id: 3,
+      type: "storage",
       fullname: "Hiwet Bimlimoh",
       email: "hiwet@bimlimoh.mh",
       landNumber: "5673",
@@ -36,27 +45,45 @@ const initialState: AddressState = {
   ],
 };
 
-export const useAddressStore = create<AddressStore>()((set) => ({
-  ...initialState,
-  updateAddress: (address) =>
+export const useAddressStore = create<AddressStore>()((set, get) => ({
+  address: initialState.address.sort((a, b) => b.id - a.id),
+  findAddress: (landNumber) =>
+    get().address.find((item) => item.landNumber === landNumber),
+  updateAddressList: (list) => set({ address: list }),
+  createOrUpdateAddress: (address) =>
     set((state) => {
-      const updated = state.address.map((item) => {
-        if (item.landNumber === address.landNumber) {
-          return address;
-        }
+      const isToCreate = !address?.id;
 
-        return item;
-      });
+      if (isToCreate) {
+        const newAddress = {
+          ...address,
+          id: state.address.length + 1,
+        };
+
+        return {
+          ...state,
+          address: [newAddress, ...state.address],
+        };
+      }
 
       return {
         ...state,
-        address: updated,
+        address: state.address.map((item) => {
+          if (item.id === address.id) {
+            return {
+              ...address,
+              id: address.id,
+            };
+          }
+
+          return item;
+        }),
       };
     }),
-  deleteAddress: (address) =>
+  deleteAddress: (addressId) =>
     set((state) => {
       const addressFiltered = state.address.filter(
-        (item) => item.landNumber !== address.landNumber,
+        (item) => item.id !== addressId,
       );
 
       return {
