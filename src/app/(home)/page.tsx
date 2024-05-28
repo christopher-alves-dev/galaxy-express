@@ -4,15 +4,13 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { ModeToggle } from "@/components/ui/theme-toggle";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -39,8 +37,9 @@ export default function Home() {
           </div>
 
           <div className="space-y-3">
+            <Label>Address list</Label>
             <Card>
-              <CardHeader>
+              <CardHeader className="space-y-3">
                 <Badge className="w-fit">Main</Badge>
 
                 <CardTitle>Maren Calzoni</CardTitle>
