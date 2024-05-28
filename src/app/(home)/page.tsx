@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <ContentBlock className="w-full">
       <ContentBlockHeader>
-        <div className="flex items-start justify-between">
+        <div className="flex items-center justify-between">
           <ContentBlockTitle>Address</ContentBlockTitle>
           <Link href="/address">
             <Button variant="outline">Add address</Button>
