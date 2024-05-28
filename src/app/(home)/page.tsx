@@ -1,3 +1,4 @@
+import { AddressList } from "@/components/ui/address-list";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,6 +8,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  ContentBlock,
+  ContentBlockContent,
+  ContentBlockHeader,
+  ContentBlockTitle,
+} from "@/components/ui/content-block";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
@@ -15,19 +22,39 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-4">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+    <main className="flex min-h-dvh flex-col items-center justify-between p-4">
+      {/* <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-end border-b border-gray-300 bg-gradient-to-b from-zinc-200 py-2 pr-2 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           <ModeToggle />
         </p>
-      </div>
+      </div> */}
 
-      <Card className="w-full bg-card">
+      <ContentBlock className="w-full bg-card">
+        <ContentBlockHeader>
+          <ContentBlockTitle>Address</ContentBlockTitle>
+        </ContentBlockHeader>
+        <Separator />
+        <ContentBlockContent>
+          <div className="flex items-center justify-between gap-3">
+            <Input placeholder="Search the address here" />
+
+            <Link href="/address">
+              <Button variant="ghost">Add address</Button>
+            </Link>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label>Address list</Label>
+            <AddressList />
+          </div>
+        </ContentBlockContent>
+      </ContentBlock>
+      {/* <Card className="w-full bg-card">
         <CardHeader>
-          <CardTitle className="text-2xl">Address</CardTitle>
+          <CardTitle className="text-xl">Address</CardTitle>
         </CardHeader>
         <Separator />
-        <CardContent className="space-y-6 p-6">
+        <CardContent className="space-y-6 p-4">
           <div className="flex items-center justify-between gap-3">
             <Input placeholder="Search the address here" />
 
@@ -72,7 +99,7 @@ export default function Home() {
             </Card>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
 
       {/* <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
         <a

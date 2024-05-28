@@ -12,7 +12,7 @@ export function CardHeaderForm({ formType }: Props) {
   const titleComplement = formType === "create" ? "Create" : "Update";
 
   return (
-    <CardHeader className="flex flex-row items-center gap-2.5 space-y-0">
+    <CardHeader className="flex flex-row items-center gap-2.5 space-y-0 p-0">
       <Link href="/">
         <Button variant="secondary" size="icon">
           <ChevronLeftIcon />
