@@ -1,12 +1,13 @@
 import { SchemaFormType } from "@/app/address/schema";
 import { create } from "zustand";
 
-type AddressDataWithId = SchemaFormType & { id: number };
+export type AddressDataWithId = SchemaFormType & { id: number };
 
 type CreateOrUpdateAddressData = SchemaFormType & Partial<{ id: number }>;
 
 type AddressState = {
   address: AddressDataWithId[];
+  filteredAddress: AddressDataWithId[];
 };
 
 type AddressActions = {
@@ -14,6 +15,7 @@ type AddressActions = {
   createOrUpdateAddress: (address: CreateOrUpdateAddressData) => void;
   updateAddressList: (list: AddressDataWithId[]) => void;
   deleteAddress: (addressId: number) => void;
+  searchAddress: (searchTerm: string) => void;
 };
 
 type AddressStore = AddressState & AddressActions;
@@ -42,9 +44,11 @@ const initialState: AddressState = {
       landNumber: "5673",
     },
   ],
+  filteredAddress: [],
 };
 
 export const useAddressStore = create<AddressStore>()((set, get) => ({
+  filteredAddress: initialState.address.sort((a, b) => b.id - a.id),
   address: initialState.address.sort((a, b) => b.id - a.id),
   findAddress: (landNumber) =>
     get().address.find((item) => item.landNumber === landNumber),
@@ -88,6 +92,23 @@ export const useAddressStore = create<AddressStore>()((set, get) => ({
       return {
         ...state,
         address: addressFiltered,
+      };
+    }),
+  searchAddress: (searchTerm) =>
+    set((state) => {
+      const lowerCaseSearchTerm = searchTerm.toLowerCase();
+      const filtered = state.address.filter((address) => {
+        return (
+          address.type.toLowerCase().includes(lowerCaseSearchTerm) ||
+          address.fullname.toLowerCase().includes(lowerCaseSearchTerm) ||
+          address.email.toLowerCase().includes(lowerCaseSearchTerm) ||
+          address.landNumber.includes(lowerCaseSearchTerm)
+        );
+      });
+
+      return {
+        ...state,
+        filteredAddress: filtered,
       };
     }),
 }));
