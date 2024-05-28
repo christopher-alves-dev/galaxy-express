@@ -6,7 +6,6 @@ import {
   ContentBlockHeader,
   ContentBlockTitle,
 } from "@/components/ui/content-block";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SearchInput } from "@/components/ui/search-input";
 import { Separator } from "@/components/ui/separator";

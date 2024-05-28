@@ -48,7 +48,7 @@ const initialState: AddressState = {
 };
 
 export const useAddressStore = create<AddressStore>()((set, get) => ({
-  filteredAddress: initialState.address.sort((a, b) => b.id - a.id),
+  filteredAddress: initialState.filteredAddress.sort((a, b) => b.id - a.id),
   address: initialState.address.sort((a, b) => b.id - a.id),
   findAddress: (landNumber) =>
     get().address.find((item) => item.landNumber === landNumber),
@@ -106,6 +106,8 @@ export const useAddressStore = create<AddressStore>()((set, get) => ({
         );
       });
 
+      //Se eu deletar um address e estiver na lista filtrada, não reflete na tela, pois só está deletando da lista principal
+      // Se eu procurar por algo que não tem na lista filtrada, ele traz a lista principal
       return {
         ...state,
         filteredAddress: filtered,

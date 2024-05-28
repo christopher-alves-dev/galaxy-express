@@ -19,7 +19,7 @@ export function AddressList() {
   const { address, filteredAddress, deleteAddress } = useAddressStore();
 
   const emptyList = !address?.length;
-  const showFilteredList = filteredAddress?.length;
+  const showFilteredList = !!filteredAddress?.length;
   const showAllAddress = !showFilteredList && !emptyList;
 
   function handleNavigateToEdit(landNumber: string) {

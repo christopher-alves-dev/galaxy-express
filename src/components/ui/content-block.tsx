@@ -23,7 +23,14 @@ const ContentBlockTitle = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
-  <CardTitle ref={ref} className={cn("text-xl", className)} {...props} />
+  <h2
+    ref={ref}
+    className={cn(
+      "text-xl font-semibold leading-none tracking-tight md:text-2xl",
+      className,
+    )}
+    {...props}
+  />
 ));
 
 ContentBlockTitle.displayName = "ContentBlockTitle";
