@@ -20,13 +20,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./select";
+import { useRouter } from "next/navigation";
 
 export function FormAddress() {
+  const router = useRouter();
   const { form, createOrUpdateAddress } = useAddressForm();
 
   function onSubmit(values: SchemaFormType) {
     console.log(values);
     createOrUpdateAddress(values);
+    router.push("/");
   }
 
   return (

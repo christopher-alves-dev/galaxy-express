@@ -12,6 +12,7 @@ export function useAddressForm() {
   const form = useForm<SchemaFormType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      id: foundAddress?.id,
       type: foundAddress?.type ?? "",
       fullname: foundAddress?.fullname ?? "",
       email: foundAddress?.email ?? "",

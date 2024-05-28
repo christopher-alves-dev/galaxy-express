@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const formSchema = z.object({
+  id: z.number().optional(),
   type: z.string({
     required_error: "Please select an address type.",
   }),
