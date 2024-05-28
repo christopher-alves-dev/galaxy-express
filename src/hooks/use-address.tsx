@@ -14,7 +14,6 @@ type AddressActions = {
   createOrUpdateAddress: (address: CreateOrUpdateAddressData) => void;
   updateAddressList: (list: AddressDataWithId[]) => void;
   deleteAddress: (addressId: number) => void;
-  resetAddress: () => void;
 };
 
 type AddressStore = AddressState & AddressActions;
@@ -91,5 +90,4 @@ export const useAddressStore = create<AddressStore>()((set, get) => ({
         address: addressFiltered,
       };
     }),
-  resetAddress: () => set(initialState),
 }));

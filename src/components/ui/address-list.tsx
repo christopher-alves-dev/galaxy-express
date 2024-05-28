@@ -12,20 +12,20 @@ import {
   CardHeader,
   CardTitle,
 } from "./card";
+import { ConfirmDelete } from "./confirm-delete";
 
 export function AddressList() {
   const router = useRouter();
-  const { address } = useAddressStore();
+  const { address, deleteAddress } = useAddressStore();
 
   const emptyList = !address?.length;
 
   function handleNavigateToEdit(landNumber: string) {
     router.push(`/address/${landNumber}`);
-    console.log("Edit Address");
   }
 
   function handleDeleteAddress(id: number) {
-    console.log("Delete Address");
+    deleteAddress(id);
   }
 
   return (
@@ -67,12 +67,8 @@ export function AddressList() {
                 <Button onClick={() => handleNavigateToEdit(item.landNumber)}>
                   Edit Address
                 </Button>
-                <Button
-                  onClick={() => handleDeleteAddress(item.id)}
-                  variant="destructive"
-                >
-                  Delete Address
-                </Button>
+
+                <ConfirmDelete onConfirm={() => handleDeleteAddress(item.id)} />
               </CardContent>
             </Card>
           );
