@@ -6,7 +6,9 @@ import { cn } from "@/lib/utils";
 const ContentBlock = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ ...props }, ref) => <Card ref={ref} {...props} />);
+>(({ className, ...props }, ref) => (
+  <Card ref={ref} className={cn("bg-accent", className)} {...props} />
+));
 
 ContentBlock.displayName = "ContentBlock";
 

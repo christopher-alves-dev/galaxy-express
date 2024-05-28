@@ -5,7 +5,7 @@ export const formSchema = z.object({
     required_error: "Please select an address type.",
   }),
   fullname: z.string().trim().min(2, {
-    message: "fullname must be at least 2 characters.",
+    message: "full name must be at least 2 characters.",
   }),
   email: z
     .string({

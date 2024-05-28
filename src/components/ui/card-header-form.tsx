@@ -14,7 +14,7 @@ export function CardHeaderForm({ formType }: Props) {
   return (
     <CardHeader className="flex flex-row items-center gap-2.5 space-y-0 p-0">
       <Link href="/">
-        <Button variant="secondary" size="icon">
+        <Button variant="outline" size="icon">
           <ChevronLeftIcon />
         </Button>
       </Link>
