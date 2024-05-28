@@ -1,5 +1,5 @@
-import { create } from "zustand";
 import { SchemaFormType } from "@/app/address/schema";
+import { create } from "zustand";
 
 type AddressDataWithId = SchemaFormType & { id: number };
 

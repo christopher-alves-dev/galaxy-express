@@ -1,13 +1,5 @@
 import { AddressList } from "@/components/ui/address-list";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   ContentBlock,
   ContentBlockContent,
@@ -17,7 +9,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { ModeToggle } from "@/components/ui/theme-toggle";
 import Link from "next/link";
 
 export default function Home() {

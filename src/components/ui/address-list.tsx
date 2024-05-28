@@ -2,6 +2,7 @@
 
 import { useAddressStore } from "@/hooks/use-address";
 import { ValueNoneIcon } from "@radix-ui/react-icons";
+import { useRouter } from "next/navigation";
 import { Badge } from "./badge";
 import { Button } from "./button";
 import {
@@ -11,7 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "./card";
-import { useRouter } from "next/navigation";
 
 export function AddressList() {
   const router = useRouter();

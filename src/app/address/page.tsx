@@ -6,7 +6,6 @@ import {
   ContentBlockHeader,
 } from "@/components/ui/content-block";
 import { Separator } from "@/components/ui/separator";
-import { ModeToggle } from "@/components/ui/theme-toggle";
 
 export default function Address() {
   return (
