@@ -27,7 +27,6 @@ export function FormAddress() {
   const { form, createOrUpdateAddress } = useAddressForm();
 
   function onSubmit(values: SchemaFormType) {
-    console.log(values);
     createOrUpdateAddress(values);
     router.push("/");
   }
@@ -38,14 +37,11 @@ export function FormAddress() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <FormField
             control={form.control}
-            name="type"
+            name="property"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Address Type</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select {...field} onValueChange={field.onChange}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a address type" />

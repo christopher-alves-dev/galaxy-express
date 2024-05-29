@@ -2,12 +2,17 @@ import { z } from "zod";
 
 export const formSchema = z.object({
   id: z.number().optional(),
-  type: z.string({
+  property: z.string({
     required_error: "Please select an address type.",
   }),
-  fullname: z.string().trim().min(2, {
-    message: "full name must be at least 2 characters.",
-  }),
+  fullname: z
+    .string({
+      required_error: "full name is required.",
+    })
+    .trim()
+    .min(3, {
+      message: "full name must be at least 3 characters.",
+    }),
   email: z
     .string({
       required_error: "email is required.",

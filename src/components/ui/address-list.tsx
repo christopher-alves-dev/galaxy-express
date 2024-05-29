@@ -14,6 +14,7 @@ import {
   CardTitle,
 } from "./card";
 import { ConfirmDelete } from "./confirm-delete";
+import { Label } from "./label";
 
 export function AddressList() {
   const router = useRouter();
@@ -33,89 +34,102 @@ export function AddressList() {
   }
 
   return (
-    <div className="grid h-[430px] grid-cols-1 gap-3 overflow-y-scroll md:grid-cols-2 md:gap-4">
-      {emptyList && (
-        <div className="flex h-full flex-col items-center justify-center gap-10">
-          <ValueNoneIcon className="h-20 w-20 text-muted-foreground" />
+    <div className="space-y-1.5">
+      <div className="flex items-center justify-between">
+        <Label>Address list</Label>
 
-          <div className="flex flex-col gap-2 text-center">
-            <p className="text-lg text-muted-foreground">
-              You don&apos;t have any address yet.
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Click on the button above to add a new address.
-            </p>
+        <Badge variant="destructive">
+          {showFilteredList ? searchList.length : address.length}
+        </Badge>
+      </div>
+      <div className="grid h-[430px] grid-cols-1 justify-center gap-3 overflow-y-scroll md:grid-cols-2 md:gap-4">
+        {emptyList && (
+          <div className="flex h-full flex-col items-center justify-center gap-10">
+            <ValueNoneIcon className="h-20 w-20 text-muted-foreground" />
+
+            <div className="flex flex-col gap-2 text-center">
+              <p className="text-lg text-muted-foreground">
+                You don&apos;t have any address yet.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Click on the button above to add a new address.
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {showFilteredList &&
-        searchList.map((item) => (
-          <Card key={item.landNumber} className="h-fit">
-            <CardHeader className="space-y-3">
-              <Badge
-                className="w-fit"
-                variant={item?.type === "factory" ? "default" : "secondary"}
-              >
-                {item?.type}
-              </Badge>
+        {showFilteredList &&
+          searchList.map((item) => (
+            <Card key={item.landNumber} className="h-fit">
+              <CardHeader className="space-y-3">
+                <Badge
+                  className="w-fit"
+                  variant={
+                    item?.property === "factory" ? "default" : "secondary"
+                  }
+                >
+                  {item?.property}
+                </Badge>
 
-              <CardTitle>{item?.fullname}</CardTitle>
+                <CardTitle>{item?.fullname}</CardTitle>
 
-              <div className="flex flex-col gap-1">
-                <CardDescription>{item?.email}</CardDescription>
-                <CardDescription>Lote {item?.landNumber}</CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent className="flex gap-3">
-              <Button onClick={() => handleNavigateToEdit(item.landNumber)}>
-                Edit Address
-              </Button>
+                <div className="flex flex-col gap-1">
+                  <CardDescription>{item?.email}</CardDescription>
+                  <CardDescription>Lote {item?.landNumber}</CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent className="flex gap-3">
+                <Button onClick={() => handleNavigateToEdit(item.landNumber)}>
+                  Edit Address
+                </Button>
 
-              <ConfirmDelete onConfirm={() => handleDeleteAddress(item.id)} />
-            </CardContent>
-          </Card>
-        ))}
+                <ConfirmDelete onConfirm={() => handleDeleteAddress(item.id)} />
+              </CardContent>
+            </Card>
+          ))}
 
-      {emptySearchList && (
-        <div className="flex h-full flex-col items-center justify-center gap-10">
-          <SearchX size={80} className="text-muted-foreground" />
+        {emptySearchList && (
+          <div className="flex h-full flex-col items-center justify-center gap-10">
+            <SearchX size={80} className="text-muted-foreground" />
 
-          <div className="flex flex-col gap-2 text-center">
-            <p className="text-lg text-muted-foreground">
-              No search found for &apos;{searchParam}&apos;
-            </p>
+            <div className="flex flex-col gap-2 text-center">
+              <p className="text-lg text-muted-foreground">
+                No search found for &apos;{searchParam}&apos;
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {showAllAddress &&
-        address.map((item) => (
-          <Card key={item.landNumber} className="h-fit">
-            <CardHeader className="space-y-3">
-              <Badge
-                className="w-fit"
-                variant={item?.type === "factory" ? "default" : "secondary"}
-              >
-                {item?.type}
-              </Badge>
+        {showAllAddress &&
+          address.map((item) => (
+            <Card key={item.landNumber} className="h-fit">
+              <CardHeader className="space-y-3">
+                <Badge
+                  className="w-fit"
+                  variant={
+                    item?.property === "factory" ? "default" : "secondary"
+                  }
+                >
+                  {item?.property}
+                </Badge>
 
-              <CardTitle>{item?.fullname}</CardTitle>
+                <CardTitle>{item?.fullname}</CardTitle>
 
-              <div className="flex flex-col gap-1">
-                <CardDescription>{item?.email}</CardDescription>
-                <CardDescription>Lote {item?.landNumber}</CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent className="flex gap-3">
-              <Button onClick={() => handleNavigateToEdit(item.landNumber)}>
-                Edit Address
-              </Button>
+                <div className="flex flex-col gap-1">
+                  <CardDescription>{item?.email}</CardDescription>
+                  <CardDescription>Lote {item?.landNumber}</CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent className="flex gap-3">
+                <Button onClick={() => handleNavigateToEdit(item.landNumber)}>
+                  Edit Address
+                </Button>
 
-              <ConfirmDelete onConfirm={() => handleDeleteAddress(item.id)} />
-            </CardContent>
-          </Card>
-        ))}
+                <ConfirmDelete onConfirm={() => handleDeleteAddress(item.id)} />
+              </CardContent>
+            </Card>
+          ))}
+      </div>
     </div>
   );
 }

@@ -6,7 +6,6 @@ import {
   ContentBlockHeader,
   ContentBlockTitle,
 } from "@/components/ui/content-block";
-import { Label } from "@/components/ui/label";
 import { SearchInput } from "@/components/ui/search-input";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
@@ -26,10 +25,7 @@ export default function Home() {
       <ContentBlockContent>
         <SearchInput />
 
-        <div className="space-y-1.5">
-          <Label>Address list</Label>
-          <AddressList />
-        </div>
+        <AddressList />
       </ContentBlockContent>
     </ContentBlock>
   );

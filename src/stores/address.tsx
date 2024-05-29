@@ -25,21 +25,21 @@ const initialState: AddressState = {
   address: [
     {
       id: 1,
-      type: "factory",
+      property: "factory",
       fullname: "Hato Jedu",
       email: "hatojedu@maif.mc",
       landNumber: "0034",
     },
     {
       id: 2,
-      type: "storage",
+      property: "storage",
       fullname: "Hogju Vpis",
       email: "hogjuvpis@ose.nc",
       landNumber: "1434",
     },
     {
       id: 3,
-      type: "storage",
+      property: "storage",
       fullname: "Hiwet Bimlimoh",
       email: "hiwet@bimlimoh.mh",
       landNumber: "5673",
@@ -60,9 +60,15 @@ export const useAddressStore = create<AddressStore>()((set, get) => ({
     set((state) => {
       const isToCreate = !address?.id;
 
+      const completeLandNumberLength =
+        address.landNumber.length !== 4
+          ? address.landNumber.padStart(4, "0")
+          : address.landNumber;
+
       if (isToCreate) {
         const newAddress = {
           ...address,
+          landNumber: completeLandNumberLength,
           id: state.address.length + 1,
         };
 
@@ -78,6 +84,7 @@ export const useAddressStore = create<AddressStore>()((set, get) => ({
           if (item.id === address.id) {
             return {
               ...address,
+              landNumber: completeLandNumberLength,
               id: address.id,
             };
           }
@@ -106,7 +113,7 @@ export const useAddressStore = create<AddressStore>()((set, get) => ({
       const lowerCaseSearchTerm = searchParam.toLowerCase();
       const filtered = state.address.filter((address) => {
         return (
-          address.type.toLowerCase().includes(lowerCaseSearchTerm) ||
+          address.property.toLowerCase().includes(lowerCaseSearchTerm) ||
           address.fullname.toLowerCase().includes(lowerCaseSearchTerm) ||
           address.email.toLowerCase().includes(lowerCaseSearchTerm) ||
           address.landNumber.includes(lowerCaseSearchTerm)

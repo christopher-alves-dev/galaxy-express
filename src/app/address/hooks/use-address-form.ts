@@ -13,10 +13,10 @@ export function useAddressForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       id: foundAddress?.id,
-      type: foundAddress?.type ?? "",
-      fullname: foundAddress?.fullname ?? "",
-      email: foundAddress?.email ?? "",
-      landNumber: foundAddress?.landNumber ?? "",
+      property: foundAddress?.property ?? undefined,
+      fullname: foundAddress?.fullname ?? undefined,
+      email: foundAddress?.email ?? undefined,
+      landNumber: foundAddress?.landNumber ?? undefined,
     },
   });
 
