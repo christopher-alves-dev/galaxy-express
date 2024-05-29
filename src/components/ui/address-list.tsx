@@ -1,6 +1,6 @@
 "use client";
 
-import { useAddressStore } from "@/hooks/use-address";
+import { useAddressStore } from "@/stores/address";
 import { ValueNoneIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { Badge } from "./badge";
@@ -31,7 +31,7 @@ export function AddressList() {
   }
 
   return (
-    <div className="grid h-[420px] grid-cols-1 gap-3 overflow-y-scroll md:grid-cols-2 md:gap-4">
+    <div className="grid h-[430px] grid-cols-1 gap-3 overflow-y-scroll md:grid-cols-2 md:gap-4">
       {emptyList && (
         <div className="flex h-full flex-col items-center justify-center gap-10">
           <ValueNoneIcon className="h-20 w-20 text-muted-foreground" />

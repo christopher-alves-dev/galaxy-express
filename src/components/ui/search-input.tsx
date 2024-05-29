@@ -1,6 +1,6 @@
 "use client";
 
-import { useAddressStore } from "@/hooks/use-address";
+import { useAddressStore } from "@/stores/address";
 import { useState } from "react";
 import { Button } from "./button";
 import { Input } from "./input";
