@@ -21,9 +21,9 @@ export function AddressList() {
   const { address, searchList, searchParam, deleteAddress } = useAddressStore();
 
   const emptyList = !address?.length;
-  const showFilteredList = !!searchParam;
-  const emptySearchList = showFilteredList && !searchList?.length;
-  const showAllAddress = !showFilteredList && !emptyList;
+  const showSearchList = !!searchParam;
+  const emptySearchList = showSearchList && !searchList?.length;
+  const showAllAddress = !showSearchList && !emptyList;
 
   function handleNavigateToEdit(landNumber: string) {
     router.push(`/address/${landNumber}`);
@@ -34,17 +34,17 @@ export function AddressList() {
   }
 
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-1.5 lg:space-y-3">
       <div className="flex items-center justify-between">
-        <Label>Address list</Label>
+        <Label className="lg:text-lg">Address list</Label>
 
-        <Badge variant="destructive">
-          {showFilteredList ? searchList.length : address.length}
+        <Badge variant="destructive" className="lg:text-sm">
+          {showSearchList ? searchList.length : address.length}
         </Badge>
       </div>
       <div className="grid h-[430px] grid-cols-1 justify-center gap-3 overflow-y-scroll md:grid-cols-2 md:gap-4">
         {emptyList && (
-          <div className="flex h-full flex-col items-center justify-center gap-10">
+          <div className="col-span-full flex h-full flex-col items-center justify-center gap-10">
             <ValueNoneIcon className="h-20 w-20 text-muted-foreground" />
 
             <div className="flex flex-col gap-2 text-center">
@@ -58,7 +58,19 @@ export function AddressList() {
           </div>
         )}
 
-        {showFilteredList &&
+        {emptySearchList && (
+          <div className="col-span-full flex h-full flex-col items-center justify-center gap-10">
+            <SearchX size={80} className="text-muted-foreground" />
+
+            <div className="flex flex-col gap-2 text-center">
+              <p className="text-lg text-muted-foreground">
+                No search found for &apos;{searchParam}&apos;
+              </p>
+            </div>
+          </div>
+        )}
+
+        {showSearchList &&
           searchList.map((item) => (
             <Card key={item.landNumber} className="h-fit">
               <CardHeader className="space-y-3">
@@ -87,18 +99,6 @@ export function AddressList() {
               </CardContent>
             </Card>
           ))}
-
-        {emptySearchList && (
-          <div className="flex h-full flex-col items-center justify-center gap-10">
-            <SearchX size={80} className="text-muted-foreground" />
-
-            <div className="flex flex-col gap-2 text-center">
-              <p className="text-lg text-muted-foreground">
-                No search found for &apos;{searchParam}&apos;
-              </p>
-            </div>
-          </div>
-        )}
 
         {showAllAddress &&
           address.map((item) => (

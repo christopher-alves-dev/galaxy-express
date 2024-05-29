@@ -15,7 +15,9 @@ ContentBlock.displayName = "ContentBlock";
 const ContentBlockHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ ...props }, ref) => <CardHeader ref={ref} {...props} />);
+>(({ className, ...props }, ref) => (
+  <CardHeader ref={ref} className={cn("md:p-6", className)} {...props} />
+));
 
 ContentBlockHeader.displayName = "ContentBlockHeader";
 
@@ -41,7 +43,7 @@ const ContentBlockContent = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <CardContent
     ref={ref}
-    className={cn("space-y-6 p-4", className)}
+    className={cn("space-y-6 p-4 md:p-6", className)}
     {...props}
   />
 ));
