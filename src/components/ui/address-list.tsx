@@ -2,6 +2,7 @@
 
 import { useAddressStore } from "@/stores/address";
 import { ValueNoneIcon } from "@radix-ui/react-icons";
+import { SearchX } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Badge } from "./badge";
 import { Button } from "./button";
@@ -16,10 +17,11 @@ import { ConfirmDelete } from "./confirm-delete";
 
 export function AddressList() {
   const router = useRouter();
-  const { address, filteredAddress, deleteAddress } = useAddressStore();
+  const { address, searchList, searchParam, deleteAddress } = useAddressStore();
 
   const emptyList = !address?.length;
-  const showFilteredList = !!filteredAddress?.length;
+  const showFilteredList = !!searchParam;
+  const emptySearchList = showFilteredList && !searchList?.length;
   const showAllAddress = !showFilteredList && !emptyList;
 
   function handleNavigateToEdit(landNumber: string) {
@@ -48,7 +50,7 @@ export function AddressList() {
       )}
 
       {showFilteredList &&
-        filteredAddress.map((item) => (
+        searchList.map((item) => (
           <Card key={item.landNumber}>
             <CardHeader className="space-y-3">
               <Badge
@@ -74,6 +76,18 @@ export function AddressList() {
             </CardContent>
           </Card>
         ))}
+
+      {emptySearchList && (
+        <div className="flex h-full flex-col items-center justify-center gap-10">
+          <SearchX size={80} className="text-muted-foreground" />
+
+          <div className="flex flex-col gap-2 text-center">
+            <p className="text-lg text-muted-foreground">
+              No search found for &apos;{searchParam}&apos;
+            </p>
+          </div>
+        </div>
+      )}
 
       {showAllAddress &&
         address.map((item) => (

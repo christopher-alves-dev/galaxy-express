@@ -7,7 +7,8 @@ type CreateOrUpdateAddressData = SchemaFormType & Partial<{ id: number }>;
 
 type AddressState = {
   address: AddressDataWithId[];
-  filteredAddress: AddressDataWithId[];
+  searchList: AddressDataWithId[];
+  searchParam: string;
 };
 
 type AddressActions = {
@@ -15,7 +16,7 @@ type AddressActions = {
   createOrUpdateAddress: (address: CreateOrUpdateAddressData) => void;
   updateAddressList: (list: AddressDataWithId[]) => void;
   deleteAddress: (addressId: number) => void;
-  searchAddress: (searchTerm: string) => void;
+  searchAddress: (searchParam: string) => void;
 };
 
 type AddressStore = AddressState & AddressActions;
@@ -44,11 +45,13 @@ const initialState: AddressState = {
       landNumber: "5673",
     },
   ],
-  filteredAddress: [],
+  searchList: [],
+  searchParam: "",
 };
 
 export const useAddressStore = create<AddressStore>()((set, get) => ({
-  filteredAddress: initialState.filteredAddress.sort((a, b) => b.id - a.id),
+  searchParam: initialState.searchParam,
+  searchList: initialState.searchList.sort((a, b) => b.id - a.id),
   address: initialState.address.sort((a, b) => b.id - a.id),
   findAddress: (landNumber) =>
     get().address.find((item) => item.landNumber === landNumber),
@@ -85,18 +88,22 @@ export const useAddressStore = create<AddressStore>()((set, get) => ({
     }),
   deleteAddress: (addressId) =>
     set((state) => {
-      const addressFiltered = state.address.filter(
+      const searchListFiltered = state.searchList.filter(
+        (item) => item.id !== addressId,
+      );
+      const mainListFiltered = state.address.filter(
         (item) => item.id !== addressId,
       );
 
       return {
         ...state,
-        address: addressFiltered,
+        address: mainListFiltered,
+        searchList: searchListFiltered,
       };
     }),
-  searchAddress: (searchTerm) =>
+  searchAddress: (searchParam) =>
     set((state) => {
-      const lowerCaseSearchTerm = searchTerm.toLowerCase();
+      const lowerCaseSearchTerm = searchParam.toLowerCase();
       const filtered = state.address.filter((address) => {
         return (
           address.type.toLowerCase().includes(lowerCaseSearchTerm) ||
@@ -106,11 +113,10 @@ export const useAddressStore = create<AddressStore>()((set, get) => ({
         );
       });
 
-      //Se eu deletar um address e estiver na lista filtrada, não reflete na tela, pois só está deletando da lista principal
-      // Se eu procurar por algo que não tem na lista filtrada, ele traz a lista principal
       return {
         ...state,
-        filteredAddress: filtered,
+        searchParam,
+        searchList: filtered,
       };
     }),
 }));

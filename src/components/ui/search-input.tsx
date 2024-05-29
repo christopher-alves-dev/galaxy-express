@@ -1,23 +1,23 @@
 "use client";
 
 import { useAddressStore } from "@/stores/address";
-import { useState } from "react";
-import { Button } from "./button";
+import { useDebouncedCallback } from "use-debounce";
 import { Input } from "./input";
 
 export function SearchInput() {
-  const [searchValue, setSearchValue] = useState("");
   const { searchAddress } = useAddressStore();
+
+  const handleSearch = useDebouncedCallback((value: string) => {
+    searchAddress(value);
+  }, 400);
 
   return (
     <div className="flex items-center justify-end gap-3">
       <Input
         placeholder="Search the address here"
         className="max-w-96"
-        onChange={(event) => setSearchValue(event.currentTarget.value)}
+        onChange={(event) => handleSearch(event.currentTarget.value)}
       />
-
-      <Button onClick={() => searchAddress(searchValue)}>Search</Button>
     </div>
   );
 }
