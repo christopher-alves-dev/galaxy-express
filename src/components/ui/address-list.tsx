@@ -51,7 +51,7 @@ export function AddressList() {
 
       {showFilteredList &&
         searchList.map((item) => (
-          <Card key={item.landNumber}>
+          <Card key={item.landNumber} className="h-fit">
             <CardHeader className="space-y-3">
               <Badge
                 className="w-fit"
@@ -91,7 +91,7 @@ export function AddressList() {
 
       {showAllAddress &&
         address.map((item) => (
-          <Card key={item.landNumber}>
+          <Card key={item.landNumber} className="h-fit">
             <CardHeader className="space-y-3">
               <Badge
                 className="w-fit"
