@@ -18,7 +18,14 @@ import { Label } from "./label";
 
 export function AddressList() {
   const router = useRouter();
-  const { address, searchList, searchParam, deleteAddress } = useAddressStore();
+  const { address, searchList, searchParam, deleteAddress } = useAddressStore(
+    (state) => ({
+      address: state.address,
+      searchList: state.searchList,
+      searchParam: state.searchParam,
+      deleteAddress: state.deleteAddress,
+    }),
+  );
 
   const emptyList = !address?.length;
   const showSearchList = !!searchParam;

@@ -6,7 +6,9 @@ import { Input } from "./input";
 import { Search } from "lucide-react";
 
 export function SearchInput() {
-  const { searchAddress } = useAddressStore();
+  const { searchAddress } = useAddressStore((state) => ({
+    searchAddress: state.searchAddress,
+  }));
 
   const handleSearch = useDebouncedCallback((value: string) => {
     searchAddress(value);

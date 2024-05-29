@@ -6,7 +6,10 @@ import { SchemaFormType, formSchema } from "../schema";
 
 export function useAddressForm() {
   const params = useParams<{ landNumber: string }>();
-  const { findAddress, createOrUpdateAddress } = useAddressStore();
+  const { findAddress, createOrUpdateAddress } = useAddressStore((state) => ({
+    findAddress: state.findAddress,
+    createOrUpdateAddress: state.createOrUpdateAddress,
+  }));
   const foundAddress = findAddress(params.landNumber);
 
   const form = useForm<SchemaFormType>({
